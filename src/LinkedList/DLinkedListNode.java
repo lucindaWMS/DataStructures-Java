@@ -45,8 +45,8 @@ public class DLinkedListNode<T> extends ListNode<T> {
 		return this.val;
 	}
 	
-	/*@Override
+	@Override
 	public String toString() {
 		return this.val.toString();
-	}*/
+	}
 }

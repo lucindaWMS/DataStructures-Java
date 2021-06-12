@@ -43,7 +43,6 @@ public class ListNode<T> extends Node<T>{
 	
 	@Override
 	public String toString() {
-		System.out.println(this.val);
 		return this.val.toString();
 	}
 }

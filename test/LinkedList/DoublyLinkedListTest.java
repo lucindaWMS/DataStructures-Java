@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Iterators.DoublyLinkedListIterator;
+
 class DoublyLinkedListTest {
 	
 	private DoublyLinkedList<Integer> creationWithoutValueList;
@@ -174,5 +176,19 @@ class DoublyLinkedListTest {
 		this.creationWithValueList.add(1);
 		String result = this.creationWithValueList.toString();
 		assertEquals("1-0--1", result);
+	}
+	
+	@Test
+	public void testIterator() {
+		DoublyLinkedListIterator<Integer> it = (DoublyLinkedListIterator<Integer>)this.creationWithValueList.iterator();
+		this.creationWithValueList.add(0);
+		this.creationWithValueList.add(1);
+		this.creationWithValueList.add(2);
+		assertEquals(Integer.MAX_VALUE, this.creationWithValueList.getLast().getVal());
+		int last = 0;
+		while(it.hasNext()) {
+			last = it.next();
+		}
+		assertEquals(Integer.MAX_VALUE, last);
 	}
 }

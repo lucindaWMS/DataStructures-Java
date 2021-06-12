@@ -2,6 +2,7 @@ package LinkedList;
 
 import java.util.Iterator;
 
+import Iterators.DoublyLinkedListIterator;
 import Utils.List;
 
 public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
@@ -19,6 +20,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	
 	public DoublyLinkedList(T val) {
 		this();
+		this.checkNotNull(val);
 		DLinkedListNode<T> node = new DLinkedListNode<>(val);
 		this.head.setNext(node);
 		node.setPrev(this.head);
@@ -71,8 +73,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DoublyLinkedListIterator<T>(this);
 	}
 
 	@Override
@@ -94,6 +95,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	@Override
 	public boolean add(T val, int index) {
 		this.checkBoundary(index);
+		this.checkNotNull(val);
 		DLinkedListNode<T> node = new DLinkedListNode<>(val);
 		if (index == 0) {
 			node.setNext(this.head.getNext());
@@ -128,6 +130,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public boolean contains(T val) {
+		this.checkNotNull(val);
 		if (this.size() == 0) {
 			return false;
 		}
@@ -177,6 +180,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public int indexOf(T val) {
+		this.checkNotNull(val);
 		if (!this.contains(val)) {
 			return -1;
 		}
@@ -194,6 +198,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public int lastIndexOf(T val) {
+		this.checkNotNull(val);
 		if (!this.contains(val)) {
 			return -1;
 		}
@@ -248,6 +253,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public ListNode<T> remove(T val) {
+		this.checkNotNull(val);
 		int index = this.indexOf(val);
 		if (index == -1) {
 			return null;
@@ -262,6 +268,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public ListNode<T> removeLastOccurrence(T val) {
+		this.checkNotNull(val);
 		int index = this.lastIndexOf(val);
 		if (index == -1) {
 			return null;
@@ -271,6 +278,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public void setFirst(T val) {
+		this.checkNotNull(val);
 		if (this.isEmpty()) {
 			this.addFirst(val);
 		} else {
@@ -280,6 +288,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public void setLast(T val) {
+		this.checkNotNull(val);
 		if (this.isEmpty()) {
 			this.addLast(val);
 		} else {
@@ -289,6 +298,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public void set(T val, int index) {
+		this.checkNotNull(val);
 		this.checkBoundary(index);
 		if (index == 0) {
 			this.head.getNext().setVal(val);
@@ -310,7 +320,6 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		StringBuilder builder = new StringBuilder();
 		if (this.isEmpty()) {
 			return builder.toString();
@@ -333,4 +342,9 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 		}
 	}
 
+	private void checkNotNull(T val) {
+		if (val == null) {
+			throw new NullPointerException(val + "");
+		}
+	}
 }

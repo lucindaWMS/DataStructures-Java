@@ -15,6 +15,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	}
 	
 	public SinglyLinkedList(T val) {
+		this.checkNotNull(val);
 		this.head = new ListNode<>(val);
 		this.size = 1;
 	}
@@ -38,6 +39,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	@Override
 	public boolean add(T val, int index) {
 		this.checkBounds(index);
+		this.checkNotNull(val);
 		ListNode<T> newNode = new ListNode<>(val);
 		if (index == 0) {
 			newNode.setNext(this.head);
@@ -64,6 +66,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public boolean contains(T val) {
+		this.checkNotNull(val);
 		if (this.size == 0) {
 			return false;
 		}
@@ -107,6 +110,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public int indexOf(T val) {
+		this.checkNotNull(val);
 		if (!this.contains(val)) {
 			return -1;
 		}
@@ -124,6 +128,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public int lastIndexOf(T val) {
+		this.checkNotNull(val);
 		if (!this.contains(val)) {
 			return -1;
 		}
@@ -202,6 +207,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public ListNode<T> removeLastOccurrence(T val) {
+		this.checkNotNull(val);
 		int lastOccurrence = this.lastIndexOf(val);
 		if (lastOccurrence == -1) {
 			return null;
@@ -225,6 +231,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public void setFirst(T val) {
+		this.checkNotNull(val);
 		if (this.isEmpty()) {
 			this.addFirst(val);
 		} else {
@@ -234,6 +241,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	
 	@Override
 	public void setLast(T val) {
+		this.checkNotNull(val);
 		if (this.isEmpty()) {
 			this.addLast(val);
 		} else {
@@ -243,6 +251,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	
 	@Override
 	public void set(T val, int index) {
+		this.checkNotNull(val);
 		this.checkBounds(index);
 		if (index == 0) {
 			this.head.setVal(val);
@@ -325,6 +334,12 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	private void checkBounds(int index) {
 		if (index > this.size || index < 0) {
 			throw new IndexOutOfBoundsException(index + "");
+		}
+	}
+	
+	private void checkNotNull(T val) {
+		if (val == null) {
+			throw new NullPointerException(val + "");
 		}
 	}
 }

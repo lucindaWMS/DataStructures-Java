@@ -188,6 +188,6 @@ public class SinglyLinkedListTest {
 		while (it.hasNext()) {
 			last = it.next();
 		}
-		assertEquals(last, this.creationWithValueList.getLast().getVal());
+		assertEquals(2, last);
 	}
 }
