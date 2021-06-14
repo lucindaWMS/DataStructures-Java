@@ -344,7 +344,7 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	private void checkNotNull(T val) {
 		if (val == null) {
-			throw new NullPointerException(val + "");
+			throw new NullPointerException(val.toString());
 		}
 	}
 }

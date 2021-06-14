@@ -27,7 +27,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public boolean addLast(T val) {
-		return this.add(val, this.size);
+		return this.add(val, this.size());
 	}
 	
 	// the default add(T val) method adds new elements to the tail of the list
@@ -184,25 +184,12 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public ListNode<T> removeFirstOccurrence(T val) {
-		if (!this.contains(val)) {
+		this.checkNotNull(val);
+		int index = this.indexOf(val);
+		if (index == -1) {
 			return null;
 		}
-		ListNode<T> removed = null;
-		int index = this.indexOf(val);
-		if (index == 0) {
-			return this.removeFirst();
-		}
-		if (index == this.size -1) {
-			return this.removeLast();
-		}
-		ListNode<T> cursor = this.head;
-		for (int i = 0; i < index - 1; i++) {
-			cursor = cursor.getNext();
-		}
-		removed = cursor.getNext();
-		cursor.setNext(cursor.getNext().getNext());
-		this.size -= 1;
-		return removed;
+		return this.removeGivenIndex(index);
 	}
 
 	@Override
@@ -212,21 +199,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 		if (lastOccurrence == -1) {
 			return null;
 		}
-		if (lastOccurrence == 0) {
-			return this.removeFirst();
-		}
-		if (lastOccurrence == this.size -1) {
-			return this.removeLast();
-		}
-		ListNode<T> removed = null;
-		ListNode<T> cursor = this.head;
-		for (int i = 0; i < lastOccurrence - 1; i++) {
-			cursor = cursor.getNext();
-		}
-		removed = cursor.getNext();
-		cursor.setNext(cursor.getNext().getNext());
-		this.size -= 1;
-		return removed;
+		return this.removeGivenIndex(lastOccurrence);
 	}
 
 	@Override
@@ -339,7 +312,7 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 	
 	private void checkNotNull(T val) {
 		if (val == null) {
-			throw new NullPointerException(val + "");
+			throw new NullPointerException(val.toString());
 		}
 	}
 }

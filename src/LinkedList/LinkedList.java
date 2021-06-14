@@ -3,6 +3,7 @@ package LinkedList;
 import Utils.List;
 
 public abstract class LinkedList<T> implements List<T>{
+	
 	public abstract boolean addFirst(T val);
 	public abstract boolean addLast(T val);
 	public abstract boolean add(T val);

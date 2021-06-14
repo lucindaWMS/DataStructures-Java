@@ -22,6 +22,7 @@ class DoublyLinkedListTest {
 	public void testConstructors() {
 		assertEquals(0, this.creationWithoutValueList.size());
 		assertEquals(1, this.creationWithValueList.size());
+		assertEquals(true, this.creationWithValueList.contains(Integer.MAX_VALUE));
 	}
 	
 	@Test
