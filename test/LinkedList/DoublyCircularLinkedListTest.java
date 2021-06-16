@@ -22,4 +22,13 @@ class DoublyCircularLinkedListTest {
 		assertEquals(1, this.creationWithValueList.size());
 		assertEquals(true, this.creationWithValueList.contains(Integer.MAX_VALUE));
 	}
+	
+	@Test
+	public void testAddFirst() {
+		assertEquals(Integer.MAX_VALUE, this.creationWithValueList.getFirst().getVal());
+		assertEquals(1, this.creationWithValueList.size());
+		this.creationWithValueList.addFirst(0);
+		assertEquals(2, this.creationWithValueList.size());
+		assertEquals(0, this.creationWithValueList.getFirst().getVal());
+	}
 }

@@ -92,6 +92,9 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public ListNode<T> get(int index) {
+		if (this.isEmpty()) {
+			return null;
+		}
 		this.checkBounds(index);
 		if (this.size == 0) {
 			throw new NullPointerException();

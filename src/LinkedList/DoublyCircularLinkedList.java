@@ -97,7 +97,6 @@ public class DoublyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public boolean add(T val, int index) {
-		// TODO Auto-generated method stub
 		this.checkNotNull(val);
 		this.checkBoundary(index);
 		DLinkedListNode<T> node = new DLinkedListNode<>(val);
@@ -112,9 +111,17 @@ public class DoublyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 			node.setNext(this.tail);
 			this.tail.setPrev(node);
 		} else {
-			
+			DLinkedListNode<T> cursor = this.head;
+			for (int i = 0; i < index; i++) {
+				cursor = cursor.getNext();
+			}
+			node.setNext(cursor.getNext());
+			cursor.getNext().setPrev(node);
+			cursor.setNext(node);
+			node.setPrev(cursor);
 		}
-		return false;
+		this.size += 1;
+		return true;
 	}
 
 	@Override
@@ -139,7 +146,7 @@ public class DoublyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 	@Override
 	public ListNode<T> getFirst() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.get(0);
 	}
 
 	@Override

@@ -65,6 +65,17 @@ class DoublyLinkedListTest {
 	}
 	
 	@Test
+	public void testGetGivenIndex() {
+		assertEquals(0, this.creationWithoutValueList.size());
+		DLinkedListNode<Integer> node = (DLinkedListNode<Integer>)this.creationWithoutValueList.getFirst();
+		assertEquals(null, node);
+		this.creationWithValueList.clear();
+		assertEquals(true, this.creationWithValueList.isEmpty());
+		node = (DLinkedListNode<Integer>) this.creationWithValueList.getLast();
+		assertEquals(null, node);
+	}
+	
+	@Test
 	public void testIndexOf() {
 		assertEquals(true, this.creationWithValueList.contains(Integer.MAX_VALUE));
 		assertEquals(0, this.creationWithValueList.indexOf(Integer.MAX_VALUE));

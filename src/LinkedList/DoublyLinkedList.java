@@ -159,6 +159,9 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public DLinkedListNode<T> get(int index) {
+		if (this.isEmpty()) {
+			return null;
+		}
 		this.checkBoundary(index);
 		if (index == 0) {
 			return this.head.getNext();
