@@ -2,6 +2,7 @@ package LinkedList;
 
 import java.util.Iterator;
 
+import Iterators.SinglyCircularLinkedListIterator;
 import Utils.List;
 
 public class SinglyCircularLinkedList<T> extends LinkedList<T> implements Iterable<T>{
@@ -66,8 +67,7 @@ public class SinglyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public Iterator<T> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new SinglyCircularLinkedListIterator<T>(this);
 	}
 
 	@Override
@@ -228,38 +228,58 @@ public class SinglyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public ListNode<T> remove(T val) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.removeFirstOccurrence(val);
 	}
 
 	@Override
 	public ListNode<T> removeFirstOccurrence(T val) {
-		// TODO Auto-generated method stub
-		return null;
+		this.checkNotNull(val);
+		int index = this.indexOf(val);
+		if (index == -1) {
+			return null;
+		}
+		return this.removeGivenIndex(index);
 	}
 
 	@Override
 	public ListNode<T> removeLastOccurrence(T val) {
-		// TODO Auto-generated method stub
-		return null;
+		this.checkNotNull(val);
+		int index = this.lastIndexOf(val);
+		if (index == -1) {
+			return null;
+		}
+		return this.removeGivenIndex(index);
 	}
 
 	@Override
 	public void setFirst(T val) {
-		// TODO Auto-generated method stub
-		
+		this.checkNotNull(val);
+		if (this.isEmpty()) {
+			this.addFirst(val);
+		} else {
+			this.set(val, 0);
+		}
 	}
 
 	@Override
 	public void setLast(T val) {
-		// TODO Auto-generated method stub
-		
+		this.checkNotNull(val);
+		if (this.isEmpty()) {
+			this.addLast(val);
+		} else {
+			this.set(val, this.size-1);
+		}
 	}
 
 	@Override
 	public void set(T val, int index) {
-		// TODO Auto-generated method stub
-		
+		this.checkNotNull(val);
+		this.checkBoundary(index);
+		ListNode<T> cursor = this.head.getNext();
+		for (int i = 0; i < index; i++) {
+			cursor = cursor.getNext();
+		}
+		cursor.setVal(val);
 	}
 
 	@Override
@@ -269,8 +289,22 @@ public class SinglyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder builder = new StringBuilder();
+		if (this.isEmpty()) {
+			return builder.toString();
+		}
+		ListNode<T> cursor = this.head.getNext();
+		while (cursor.getNext() != this.head) {
+			builder.append(cursor.toString());
+			builder.append('-');
+			cursor = cursor.getNext();
+		}
+		builder.append(cursor.toString());
+		return builder.toString();
+	}
+	
+	public ListNode<T> getHead() {
+		return this.head;
 	}
 	
 	private void checkBoundary(int index) {

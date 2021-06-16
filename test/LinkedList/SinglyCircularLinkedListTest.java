@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import Iterators.SinglyCircularLinkedListIterator;
+
 class SinglyCircularLinkedListTest {
 	
 	private SinglyCircularLinkedList<Integer> creationWithoutValueList;
@@ -97,5 +99,95 @@ class SinglyCircularLinkedListTest {
 		assertEquals(2, this.creationWithValueList.size());
 		assertEquals(1, this.creationWithValueList.get(1).getVal());
 		assertEquals(0, removed.getVal());
+	}
+	
+	@Test
+	public void testRemoveGivenValue() {
+		this.creationWithValueList.add(0);
+		assertEquals(2, this.creationWithValueList.size());
+		assertEquals(true, this.creationWithValueList.contains(0));
+		ListNode<Integer> removed = this.creationWithValueList.remove(0);
+		assertEquals(1, this.creationWithValueList.size());
+		assertEquals(false, this.creationWithValueList.contains(0));
+		assertEquals(0, removed.getVal());
+		removed = this.creationWithValueList.remove(-1);
+		assertEquals(null, removed);
+	}
+	
+	@Test
+	public void testRemoveLastOccurrence() {
+		this.creationWithValueList.add(0);
+		this.creationWithValueList.add(0);
+		assertEquals(3, this.creationWithValueList.size());
+		assertEquals(0, this.creationWithValueList.getLast().getVal());
+		ListNode<Integer> removed = this.creationWithValueList.removeLastOccurrence(0);
+		assertEquals(2, this.creationWithValueList.size());
+		assertEquals(0, this.creationWithValueList.getLast().getVal());
+		assertEquals(0, removed.getVal());
+		ListNode<Integer> newlyRemoved = this.creationWithValueList.removeFirstOccurrence(0);
+		assertEquals(1, this.creationWithValueList.size());
+		assertEquals(false, this.creationWithValueList.contains(0));
+		assertEquals(Integer.MAX_VALUE, this.creationWithValueList.getLast().getVal());
+		assertEquals(0, newlyRemoved.getVal());
+	}
+	
+	@Test
+	public void testSetFirst() {
+		assertEquals(Integer.MAX_VALUE, this.creationWithValueList.getFirst().getVal());
+		assertEquals(1, this.creationWithValueList.size());
+		this.creationWithValueList.setFirst(0);
+		assertEquals(0, this.creationWithValueList.get(0).getVal());
+		assertEquals(1, this.creationWithValueList.size());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		this.creationWithoutValueList.setFirst(0);
+		assertEquals(1, this.creationWithoutValueList.size());
+		assertEquals(true, this.creationWithoutValueList.contains(0));
+	}
+	
+	@Test
+	public void testSetLast() {
+		assertEquals(Integer.MAX_VALUE, this.creationWithValueList.getLast().getVal());
+		assertEquals(1, this.creationWithValueList.size());
+		this.creationWithValueList.setLast(0);
+		assertEquals(0, this.creationWithValueList.getLast().getVal());
+		assertEquals(1, this.creationWithValueList.size());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		this.creationWithoutValueList.setLast(0);
+		assertEquals(1, this.creationWithoutValueList.size());
+		assertEquals(true, this.creationWithoutValueList.contains(0));
+	}
+	
+	@Test
+	public void testSetGivenIndex() {
+		this.creationWithValueList.add(0);
+		this.creationWithValueList.add(1);
+		assertEquals(3, this.creationWithValueList.size());
+		assertEquals(0, this.creationWithValueList.get(1).getVal());
+		this.creationWithValueList.set(-1, 1);
+		assertEquals(3, this.creationWithValueList.size());
+		assertEquals(-1, this.creationWithValueList.get(1).getVal());
+	}
+	
+	@Test
+	public void testToString() {
+		this.creationWithValueList.setFirst(-1);
+		this.creationWithValueList.add(0);
+		this.creationWithValueList.add(1);
+		String result = this.creationWithValueList.toString();
+		assertEquals("-1-0-1", result);
+	}
+	
+	@Test
+	public void testIterator() {
+		SinglyCircularLinkedListIterator<Integer> it = (SinglyCircularLinkedListIterator<Integer>) this.creationWithValueList.iterator();
+		this.creationWithValueList.add(0);
+		this.creationWithValueList.add(1);
+		this.creationWithValueList.add(2);
+		assertEquals(2, this.creationWithValueList.getLast().getVal());
+		int last = 0;
+		while (it.hasNext()) {
+			last = it.next();
+		}
+		assertEquals(2, last);
 	}
 }

@@ -8,14 +8,16 @@ import LinkedList.DoublyLinkedList;
 public class DoublyLinkedListIterator<T> implements Iterator<T>{
 	
 	DLinkedListNode<T> cursor;
+	DLinkedListNode<T> tail;
 	
 	public DoublyLinkedListIterator(DoublyLinkedList<T> list) {
 		this.cursor = list.getFirst();
+		this.tail = list.getTail();
 	}
 
 	@Override
 	public boolean hasNext() {
-		return this.cursor.getVal() != null;
+		return this.cursor != this.tail;
 	}
 
 	@Override

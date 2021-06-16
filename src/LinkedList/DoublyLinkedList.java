@@ -336,6 +336,10 @@ public class DoublyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 		return builder.toString();
 	}
 	
+	public DLinkedListNode<T> getTail() {
+		return this.tail;
+	}
+	
 	private void checkBoundary(int index) {
 		if (index < 0 || index > this.size) {
 			throw new IndexOutOfBoundsException(index + "");
