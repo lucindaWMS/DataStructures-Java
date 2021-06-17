@@ -80,6 +80,9 @@ class SinglyCircularLinkedListTest {
 		this.creationWithValueList.add(0);
 		assertEquals(1, this.creationWithValueList.indexOf(0));
 		assertEquals(3, this.creationWithValueList.lastIndexOf(0));
+		assertEquals(false, this.creationWithValueList.contains(-1));
+		assertEquals(-1, this.creationWithValueList.indexOf(-1));
+		assertEquals(-1, this.creationWithValueList.lastIndexOf(-1));
 	}
 	
 	@Test
@@ -89,6 +92,9 @@ class SinglyCircularLinkedListTest {
 		ListNode<Integer> removed = this.creationWithValueList.removeFirst();
 		assertEquals(true, this.creationWithValueList.isEmpty());
 		assertEquals(Integer.MAX_VALUE, removed.getVal());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		removed = (DLinkedListNode<Integer>) this.creationWithoutValueList.removeFirst();
+		assertEquals(null, removed);
 	}
 	
 	@Test
@@ -98,6 +104,9 @@ class SinglyCircularLinkedListTest {
 		ListNode<Integer> removed = this.creationWithValueList.removeLast();
 		assertEquals(true, this.creationWithValueList.isEmpty());
 		assertEquals(Integer.MAX_VALUE, removed.getVal());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		removed = (DLinkedListNode<Integer>) this.creationWithoutValueList.removeLast();
+		assertEquals(null, removed);
 	}
 	
 	@Test

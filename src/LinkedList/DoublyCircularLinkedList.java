@@ -91,8 +91,8 @@ public class DoublyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 	// the default add(T val) method adds the new element to the head of the list
 	@Override
 	public boolean add(T val) {
-		// TODO Auto-generated method stub
-		return false;
+		this.checkNotNull(val);
+		return this.addFirst(val);
 	}
 
 	@Override
@@ -126,8 +126,11 @@ public class DoublyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		this.head.setNext(this.tail);
+		this.head.setPrev(this.tail);
+		this.tail.setNext(this.head);
+		this.tail.setPrev(this.head);
+		this.size = 0;
 	}
 
 	@Override
@@ -145,74 +148,135 @@ public class DoublyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public ListNode<T> getFirst() {
-		// TODO Auto-generated method stub
 		return this.get(0);
 	}
 
 	@Override
 	public ListNode<T> getLast() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.get(this.size()-1);
 	}
 
 	@Override
 	public ListNode<T> get(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (this.isEmpty()) {
+			return null;
+		}
+		this.checkBoundary(index);
+		if (index == 0) {
+			return this.head.getNext();
+		}
+		if (index == this.size()-1) {
+			return this.tail.getPrev();
+		}
+		DLinkedListNode<T> cursor = this.head;
+		for (int i = 0; i <= index; i++) {
+			cursor = cursor.getNext();
+		}
+		return cursor;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.size() == 0;
 	}
 
 	@Override
 	public int indexOf(T val) {
-		// TODO Auto-generated method stub
-		return 0;
+		this.checkNotNull(val);
+		if (!this.contains(val)) {
+			return -1;
+		}
+		DLinkedListNode<T> cursor = this.head;
+		int index = 0;
+		while (cursor != this.tail) {
+			cursor = cursor.getNext();
+			if (cursor.getVal().equals(val)) {
+				return index;
+			}
+			index += 1;
+		}
+		return -1;
 	}
 
 	@Override
 	public int lastIndexOf(T val) {
-		// TODO Auto-generated method stub
-		return 0;
+		this.checkNotNull(val);
+		if (!this.contains(val)) {
+			return -1;
+		}
+		DLinkedListNode<T> cursor = this.tail;
+		int index = this.size();
+		while (cursor != this.head) {
+			index -= 1;
+			cursor = cursor.getPrev();
+			if (cursor.getVal().equals(val)) {
+				return index;
+			}
+		}
+		return -1;
 	}
 
 	@Override
 	public ListNode<T> removeFirst() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.removeGivenIndex(0);
 	}
 
 	@Override
 	public ListNode<T> removeLast() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.removeGivenIndex(this.size()-1);
 	}
 
 	@Override
 	public ListNode<T> removeGivenIndex(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		if (this.isEmpty()) {
+			return null;
+		}
+		this.checkBoundary(index);
+		DLinkedListNode<T> removed = null;
+		if (index == 0) {
+			removed = this.head.getNext();
+			removed.getNext().setPrev(this.head);
+			this.head.setNext(removed.getNext());
+		} else if (index == this.size()-1) {
+			removed = this.tail.getPrev();
+			removed.getPrev().setNext(this.tail);
+			this.tail.setPrev(removed.getPrev());
+		} else {
+			DLinkedListNode<T> cursor = this.head;
+			for (int i = 0; i < index; i++) {
+				cursor = cursor.getNext();
+			}
+			removed = cursor.getNext();
+			cursor.setNext(removed.getNext());
+			removed.getNext().setPrev(cursor);
+		}
+		this.size -= 1;
+		return removed;
 	}
 
 	@Override
 	public ListNode<T> remove(T val) {
-		// TODO Auto-generated method stub
-		return null;
+		this.checkNotNull(val);
+		int index = this.indexOf(val);
+		if (index == -1) {
+			return null;
+		}
+		return this.removeGivenIndex(index);
 	}
 
 	@Override
 	public ListNode<T> removeFirstOccurrence(T val) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.remove(val);
 	}
 
 	@Override
 	public ListNode<T> removeLastOccurrence(T val) {
-		// TODO Auto-generated method stub
-		return null;
+		this.checkNotNull(val);
+		int index = this.lastIndexOf(val);
+		if (index == -1) {
+			return null;
+		}
+		return this.removeGivenIndex(index);
 	}
 
 	@Override

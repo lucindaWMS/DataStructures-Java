@@ -78,6 +78,9 @@ public class SinglyLinkedListTest {
 		assertEquals(0, this.creationWithValueList.lastIndexOf(Integer.MAX_VALUE));
 		this.creationWithValueList.add(Integer.MAX_VALUE);
 		assertEquals(1, this.creationWithValueList.lastIndexOf(Integer.MAX_VALUE));
+		assertEquals(false, this.creationWithValueList.contains(-1));
+		assertEquals(-1, this.creationWithValueList.indexOf(-1));
+		assertEquals(-1, this.creationWithValueList.lastIndexOf(-1));
 	}
 	
 	@Test
@@ -88,6 +91,9 @@ public class SinglyLinkedListTest {
 		assertEquals(false, this.creationWithValueList.contains(Integer.MAX_VALUE));
 		assertEquals(true, this.creationWithValueList.isEmpty());
 		assertEquals(Integer.MAX_VALUE, removed.getVal());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		removed = (DLinkedListNode<Integer>) this.creationWithoutValueList.removeFirst();
+		assertEquals(null, removed);
 	}
 	
 	@Test
@@ -98,6 +104,9 @@ public class SinglyLinkedListTest {
 		assertEquals(false, this.creationWithValueList.contains(0));
 		assertEquals(1, this.creationWithValueList.size());
 		assertEquals(0, removed.getVal());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		removed = (DLinkedListNode<Integer>) this.creationWithoutValueList.removeLast();
+		assertEquals(null, removed);
 	}
 	
 	@Test

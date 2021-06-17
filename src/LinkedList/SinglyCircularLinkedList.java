@@ -208,6 +208,9 @@ public class SinglyCircularLinkedList<T> extends LinkedList<T> implements Iterab
 
 	@Override
 	public ListNode<T> removeGivenIndex(int index) {
+		if (this.isEmpty()) {
+			return null;
+		}
 		this.checkBoundary(index);
 		ListNode<T> removed = null;
 		if (index == 0) {

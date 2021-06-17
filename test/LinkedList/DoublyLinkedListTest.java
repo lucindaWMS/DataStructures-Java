@@ -85,6 +85,9 @@ class DoublyLinkedListTest {
 		this.creationWithValueList.add(Integer.MAX_VALUE);
 		assertEquals(2, this.creationWithValueList.lastIndexOf(Integer.MAX_VALUE));
 		assertEquals(0, this.creationWithValueList.indexOf(Integer.MAX_VALUE));
+		assertEquals(false, this.creationWithValueList.contains(-1));
+		assertEquals(-1, this.creationWithValueList.indexOf(-1));
+		assertEquals(-1, this.creationWithValueList.lastIndexOf(-1));
 	}
 	
 	@Test
@@ -95,6 +98,9 @@ class DoublyLinkedListTest {
 		assertEquals(false, this.creationWithValueList.contains(Integer.MAX_VALUE));
 		assertEquals(true, this.creationWithValueList.isEmpty());
 		assertEquals(Integer.MAX_VALUE, removed.getVal());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		removed = (DLinkedListNode<Integer>) this.creationWithoutValueList.removeFirst();
+		assertEquals(null, removed);
 	}
 	
 	@Test
@@ -105,6 +111,9 @@ class DoublyLinkedListTest {
 		DLinkedListNode<Integer> removed = (DLinkedListNode<Integer>) this.creationWithValueList.removeLast();
 		assertEquals(false, this.creationWithValueList.contains(0));
 		assertEquals(0, removed.getVal());
+		assertEquals(true, this.creationWithoutValueList.isEmpty());
+		removed = (DLinkedListNode<Integer>) this.creationWithoutValueList.removeLast();
+		assertEquals(null, removed);
 	}
 	
 	@Test

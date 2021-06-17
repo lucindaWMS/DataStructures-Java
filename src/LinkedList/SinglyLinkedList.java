@@ -160,6 +160,9 @@ public class SinglyLinkedList<T> extends LinkedList<T> implements Iterable<T> {
 
 	@Override
 	public ListNode<T> removeGivenIndex(int index) {
+		if (this.isEmpty()) {
+			return null;
+		}
 		this.checkBounds(index);
 		ListNode<T> removed = null;
 		if (index == 0) {
